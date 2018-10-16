@@ -6,6 +6,10 @@
 "
 
 function! s:init_buffer() abort
+    if !filereadable(expand('~/.docker-vim.json'))
+        return
+    endif
+
     let config = json_decode(readfile(expand('~/.docker-vim.json')))
     for project in config.projects
         let project.local_dir = simplify(expand(project.local_dir))
