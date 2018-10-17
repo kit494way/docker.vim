@@ -4,11 +4,6 @@
 " License: MIT license
 "=============================================================================
 
-if exists("g:loaded_docker")
-    finish
-endif
-let g:loaded_docker = 1
-
 function! docker#edit(path) abort
     let tmpfile = tempname()
     silent call docker#cp(a:path, tmpfile)

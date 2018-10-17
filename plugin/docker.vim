@@ -5,6 +5,11 @@
 "=============================================================================
 "
 
+if exists("g:loaded_docker")
+    finish
+endif
+let g:loaded_docker = 1
+
 function! s:init_buffer() abort
     if !filereadable(expand('~/.docker-vim.json'))
         return
