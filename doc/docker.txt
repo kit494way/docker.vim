@@ -1,0 +1,72 @@
+*docker.vim*  Plugin for Docker
+
+==============================================================================
+CONTENTS                                                          *docker-vim*
+
+1. Introduction                                                 |docker-intro|
+2. Settings                                                  |docker-settings|
+3. Commands                                                  |docker-commands|
+
+==============================================================================
+INTRODUCTION                                                    *docker-intro*
+
+This plugin provides functionality for read/write files in docker container.
+No need to install vim in a docker container.
+Edit by vim running on local, configured by own settings and customized by
+useful plugins.
+
+==============================================================================
+SETTINGS                                                     *docker-settings*
+
+docker-vim.json                             *docker-mappings*  *docker-vim-json*
+    Some commands are conditionally available by the settings in
+    $HOME/.docker-vim.json.
+    Assume that the content of $HOME/.docker-vim.json is as follows.
+        {
+          "projects": [
+            {
+              "container": "docker-vim",
+              "container_dir": "/src",
+              "local_dir": "~/project"
+            }
+          ]
+        }
+
+    This create a mapping between the directory in container and the local
+    directory, and `:DockerDiffFile`, `:DockerDownload` and `:DockerUpload` are
+    available in buffer of files in ~/projects.
+    For example, open ~/project/example.txt and execute `:DockerUpload`, then
+    the content of ~/projects/example.txt is written to the file
+    /src/example.txt in the container named docker-vim. Before execute
+    commands, /src directory must exist in the container.
+
+==============================================================================
+COMMANDS                                                     *docker-commands*
+
+:DockerDiffFile                                              *:DockerDiffFile*
+    Show vimdiff on the current file and the file in a container. The file in
+    a container is determined from the current file path and the setting in
+    $HOME/.docker-vim.json.
+
+:DockerDownload                                              *:DockerDownload*
+    Overwrite the current file by the content of the file in a container. The
+    file in a container is determined from the current file path and the setting
+    in $HOME/.docker-vim.json.
+
+:DockerEdit filepath                                             *:DockerEdit*
+    Edit a file in a container. The filepath is to file in a container.
+    Example:
+        :DockerEdit container_name:/path/to/file
+
+:DockerUpload                                                  *:DockerUpload*
+    Overwrite the file in a container by the content of the current file. The
+    file in a container is determined from the current file path and the setting
+    in $HOME/.docker-vim.json.
+
+:DockerWrite filepath                                           *:DockerWrite*
+    Write the content of current file to the file in a container.
+    Example:
+        :DockerWrite container_name:/path/to/file
+
+==============================================================================
+ vim:tw=78:sw=4:noet:ts=8:ft=help:norl:
