@@ -5,7 +5,12 @@
 "=============================================================================
 
 function! docker#edit(path) abort
-    let tmpfile = tempname()
+    let ext = fnamemodify(a:path, ':e')
+    if len(ext) > 0
+        let tmpfile = tempname() . '.' . ext
+    else
+        let tmpfile = tempname()
+    endif
     silent call docker#cp(a:path, tmpfile)
     execute 'e ' . tmpfile
     let b:docker_edit_path = a:path
