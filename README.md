@@ -21,6 +21,49 @@ When execute `:w`, the content of the tmp file is written to /tmp/example.txt in
 
 This command write the content of current file to the /path/to/file in the container named container_name.
 
+### Execute a script in a container
+
+```vim
+:DockerPlay
+```
+
+This command execute the content of a file in a container.
+If asyncrun.vim is installed, this is executed via `:AsyncRun` .
+
+#### Example
+
+First, run a container.
+
+```sh
+docker container run --security-opt seccomp=unconfined -itd --rm --name swift swift
+```
+
+Second, open sample.swift and edit.
+
+```swift
+print("Hello World")
+```
+
+The extension of the file is important. It is used to determine the container in which the script is executed and the way execution.
+
+Then, execute `:DockerPlay`.
+
+#### Containers in which script is executed
+
+The container in which the script is executed and the way execution is configured by `g:docker_play_containers` as follows
+
+```vim
+let g:docker_play_containers = {
+\   'py': {'container': 'python', 'cmd': ['python']},
+\   'swift': {'container': 'swift', 'cmd': ['swift']},
+\}
+```
+
+Keys of `g:docker_play_containers` are file extensions.
+The value of `container` is a name of container in which script is executed.
+The value of `cmd` is a list of the command and arguments to execute the script.
+In case of sample.py, `:DockerPlay` equivalents to `docker container exec python python sample.py`.
+
 ## Example of working with a project
 
 In this example, assuming that a docker container named 'docker-vim' is running.
