@@ -54,6 +54,7 @@ endfunction
 
 command! -nargs=1 DockerEdit :call docker#edit(<f-args>)
 command! -nargs=1 DockerWrite :call docker#write(<f-args>)
+command! -nargs=1 DockerWriteEdit :call docker#write_edit(<f-args>)
 command! -nargs=0 DockerPlay :call docker#play()
 
 augroup docker_vim

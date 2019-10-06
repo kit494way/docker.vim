@@ -17,9 +17,14 @@ function! docker#edit(path) abort
     silent autocmd BufWritePost <buffer> call docker#write(b:docker_edit_path)
 endfunction
 
+function! docker#write_edit(dst) abort
+    call docker#write(a:dst)
+    let b:docker_edit_path = a:dst
+    silent autocmd BufWritePost <buffer> call docker#write(b:docker_edit_path)
+endfunction
+
 function! docker#write(dst) abort
     silent call docker#cp(expand('%'), a:dst)
-    echom 'Written to ' . a:dst
 endfunction
 
 function! docker#upload() abort
