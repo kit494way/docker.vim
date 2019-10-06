@@ -20,6 +20,7 @@ When execute `:w`, the content of the tmp file is written to /tmp/example.txt in
 ```
 
 This command write the content of current file to the /path/to/file in the container named container_name.
+If you want to upddate /path/to/file in the container automatically on executing `:w`, use `:DockerWriteEdit` instead.
 
 ### Execute a script in a container
 
