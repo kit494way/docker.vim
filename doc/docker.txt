@@ -68,5 +68,18 @@ COMMANDS                                                     *docker-commands*
     Example:
         :DockerWrite container_name:/path/to/file
 
+:DockerPlay
+    Execute a script in a container. :DockerPlay in the buffer of sample.swift
+    equivalent to `docker exec swift swift sample.swift` .
+    :DockerPlay in a file with extension `ext` requires that a container named
+    `ext` is running and the command swift is installed in the container.
+    The container in which script is executed and the way execution is
+    customized by `g:docker_play_containers` as follows,
+
+        let g:docker_play_containers = {
+        \   'py': {'container': 'python', 'cmd': ['python']},
+        \   'swift': {'container': 'swift', 'cmd': ['swift']},
+        }
+
 ==============================================================================
  vim:tw=78:sw=4:noet:ts=8:ft=help:norl:
