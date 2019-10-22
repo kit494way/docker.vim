@@ -55,7 +55,7 @@ function! docker#diff_file() abort
 endfunction
 
 function! docker#cp(src, dst)
-    execute '!docker cp ' . a:src . ' ' . a:dst
+    call system('docker cp ' . a:src . ' ' . a:dst)
 endfunction
 
 function! s:container_path(path, ...)
@@ -71,7 +71,8 @@ function! docker#exec(...) abort
     if exists(':AsyncRun') == 2
         execute 'AsyncRun -raw ' . cmd
     else
-        execute '!' . cmd
+        copen
+        cgetexpr system(cmd)
     endif
 endfunction
 
