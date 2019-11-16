@@ -52,9 +52,9 @@ function! s:init_buffer() abort
     command! -buffer -nargs=0 DockerDiffFile :call docker#diff_file()
 endfunction
 
-command! -nargs=1 DockerEdit :call docker#edit(<f-args>)
-command! -nargs=1 DockerWrite :call docker#write(<f-args>)
-command! -nargs=1 DockerWriteEdit :call docker#write_edit(<f-args>)
+command! -nargs=1 -complete=custom,docker#complete#containers DockerEdit :call docker#edit(<f-args>)
+command! -nargs=1 -complete=custom,docker#complete#containers DockerWrite :call docker#write(<f-args>)
+command! -nargs=1 -complete=custom,docker#complete#containers DockerWriteEdit :call docker#write_edit(<f-args>)
 command! -nargs=0 DockerPlay :call docker#play()
 
 augroup docker_vim
